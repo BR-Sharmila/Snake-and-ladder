@@ -1,2 +1,2 @@
 # Snake-and-ladder
-Snake and Ladder game developed using python and pygame.
+A two-player Snake and Ladder game developed using Python.
