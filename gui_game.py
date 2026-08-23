@@ -11,7 +11,6 @@ window.title("🐍 Snake & Ladder")
 window.geometry("650x750")
 window.configure(bg="white")
 
-# Smaller board
 BOARD_SIZE = 500
 CELL_SIZE = BOARD_SIZE // 10
 
@@ -179,7 +178,7 @@ def draw_ladders():
 
         rail_distance = 7
 
-        # Rails
+        # Left rail
         canvas.create_line(
             x1 + px * rail_distance,
             y1 + py * rail_distance,
@@ -189,6 +188,7 @@ def draw_ladders():
             width=4
         )
 
+        # Right rail
         canvas.create_line(
             x1 - px * rail_distance,
             y1 - py * rail_distance,
@@ -414,18 +414,12 @@ def update_screen():
 
 
 # =========================================================
-# ROLL DICE
+# FINISH DICE ROLL
 # =========================================================
 
-def roll_dice():
+def finish_roll(dice):
 
     global player1, player2, current_player
-
-    dice = random.randint(1, 6)
-
-    dice_display.config(
-        text=f"🎲 {dice}"
-    )
 
     # PLAYER 1
     if current_player == 1:
@@ -531,6 +525,65 @@ def roll_dice():
         message.config(
             text="🔴 Player 1's turn"
         )
+
+    # Enable button again
+    roll_button.config(
+        state="normal"
+    )
+
+
+# =========================================================
+# DICE ANIMATION
+# =========================================================
+
+def animate_dice(count=0):
+
+    # Stop animation
+    if count >= 10:
+
+        final_dice = random.randint(1, 6)
+
+        dice_display.config(
+            text=f"🎲 {final_dice}"
+        )
+
+        window.after(
+            300,
+            lambda: finish_roll(final_dice)
+        )
+
+        return
+
+    # Show random dice number
+    number = random.randint(1, 6)
+
+    dice_display.config(
+        text=f"🎲 {number}"
+    )
+
+    # Continue animation
+    window.after(
+        80,
+        lambda: animate_dice(count + 1)
+    )
+
+
+# =========================================================
+# ROLL DICE
+# =========================================================
+
+def roll_dice():
+
+    # Prevent clicking while dice is rolling
+    roll_button.config(
+        state="disabled"
+    )
+
+    message.config(
+        text="🎲 Rolling..."
+    )
+
+    animate_dice()
 
 
 # =========================================================
