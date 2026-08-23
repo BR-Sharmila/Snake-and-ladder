@@ -51,8 +51,10 @@ ladders = {
 # PLAYERS
 # =========================================================
 
-player1 = 1
-player2 = 1
+# Start at 0, not 1
+player1 = 0
+player2 = 0
+
 current_player = 1
 
 
@@ -92,6 +94,10 @@ canvas.pack()
 
 def get_center(position):
 
+    # Position 0 means START area
+    if position == 0:
+        return 25, 525
+
     row = (position - 1) // 10
     column = (position - 1) % 10
 
@@ -110,7 +116,7 @@ def get_center(position):
 
 def draw_board():
 
-    canvas.delete("all")
+    canvas.delete("board")
 
     for position in range(1, 101):
 
@@ -139,7 +145,8 @@ def draw_board():
             right,
             bottom,
             fill=color,
-            outline="black"
+            outline="black",
+            tags="board"
         )
 
         canvas.create_text(
@@ -147,7 +154,8 @@ def draw_board():
             top + 4,
             text=str(position),
             anchor="nw",
-            font=("Arial", 8, "bold")
+            font=("Arial", 8, "bold"),
+            tags="board"
         )
 
     draw_ladders()
@@ -185,7 +193,8 @@ def draw_ladders():
             x2 + px * rail_distance,
             y2 + py * rail_distance,
             fill="#704214",
-            width=4
+            width=4,
+            tags="board"
         )
 
         # Right rail
@@ -195,7 +204,8 @@ def draw_ladders():
             x2 - px * rail_distance,
             y2 - py * rail_distance,
             fill="#704214",
-            width=4
+            width=4,
+            tags="board"
         )
 
         # Rungs
@@ -214,7 +224,8 @@ def draw_ladders():
                 cx - px * rail_distance,
                 cy - py * rail_distance,
                 fill="#9A632F",
-                width=3
+                width=3,
+                tags="board"
             )
 
 
@@ -262,7 +273,8 @@ def draw_snakes():
             points,
             fill="#228B22",
             width=9,
-            smooth=True
+            smooth=True,
+            tags="board"
         )
 
         # Snake head
@@ -272,7 +284,8 @@ def draw_snakes():
             x1 + 9,
             y1 + 9,
             fill="#32A852",
-            outline="black"
+            outline="black",
+            tags="board"
         )
 
 
@@ -284,35 +297,77 @@ def draw_players():
 
     canvas.delete("players")
 
-    # Player 1
-    x1, y1 = get_center(player1)
+    # -----------------------------------------------------
+    # PLAYER 1
+    # -----------------------------------------------------
 
-    canvas.create_oval(
-        x1 - 10,
-        y1 - 10,
-        x1 + 10,
-        y1 + 10,
-        fill="red",
-        outline="darkred",
-        width=2,
-        tags="players"
-    )
+    if player1 == 0:
 
-    canvas.create_text(
-        x1,
-        y1,
-        text="1",
-        fill="white",
-        font=("Arial", 8, "bold"),
-        tags="players"
-    )
+        x1, y1 = get_center(0)
 
-    # Player 2
-    x2, y2 = get_center(player2)
+        canvas.create_oval(
+            x1 - 10,
+            y1 - 10,
+            x1 + 10,
+            y1 + 10,
+            fill="red",
+            outline="darkred",
+            width=2,
+            tags="players"
+        )
 
-    if player1 == player2:
-        x2 += 14
-        y2 += 14
+        canvas.create_text(
+            x1,
+            y1,
+            text="1",
+            fill="white",
+            font=("Arial", 8, "bold"),
+            tags="players"
+        )
+
+    else:
+
+        x1, y1 = get_center(player1)
+
+        canvas.create_oval(
+            x1 - 10,
+            y1 - 10,
+            x1 + 10,
+            y1 + 10,
+            fill="red",
+            outline="darkred",
+            width=2,
+            tags="players"
+        )
+
+        canvas.create_text(
+            x1,
+            y1,
+            text="1",
+            fill="white",
+            font=("Arial", 8, "bold"),
+            tags="players"
+        )
+
+
+    # -----------------------------------------------------
+    # PLAYER 2
+    # -----------------------------------------------------
+
+    if player2 == 0:
+
+        x2, y2 = get_center(0)
+
+        x2 += 25
+        y2 += 25
+
+    else:
+
+        x2, y2 = get_center(player2)
+
+        if player1 == player2:
+            x2 += 14
+            y2 += 14
 
     canvas.create_oval(
         x2 - 10,
@@ -377,7 +432,7 @@ score_frame.pack(pady=1)
 
 player1_score = tk.Label(
     score_frame,
-    text="🔴 Player 1: 1",
+    text="🔴 Player 1: 0",
     font=("Arial", 10, "bold"),
     bg="white"
 )
@@ -387,7 +442,7 @@ player1_score.pack(side="left", padx=15)
 
 player2_score = tk.Label(
     score_frame,
-    text="🔵 Player 2: 1",
+    text="🔵 Player 2: 0",
     font=("Arial", 10, "bold"),
     bg="white"
 )
@@ -419,28 +474,39 @@ def update_screen():
 
 def finish_roll(dice):
 
-    global player1, player2, current_player
+    global player1
+    global player2
+    global current_player
 
+    # =====================================================
     # PLAYER 1
+    # =====================================================
+
     if current_player == 1:
 
         new_position = player1 + dice
 
+        # Cannot go beyond 100
         if new_position <= 100:
+
             player1 = new_position
 
+        # Ladder
         if player1 in ladders:
 
             old_position = player1
+
             player1 = ladders[player1]
 
             message.config(
                 text=f"🪜 Player 1: {old_position} → {player1}"
             )
 
+        # Snake
         elif player1 in snakes:
 
             old_position = player1
+
             player1 = snakes[player1]
 
             message.config(
@@ -450,11 +516,12 @@ def finish_roll(dice):
         else:
 
             message.config(
-                text=f"🎲 Player 1 rolled {dice}"
+                text=f"🎲 Player 1 rolled {dice} → {player1}"
             )
 
         update_screen()
 
+        # Winner
         if player1 == 100:
 
             message.config(
@@ -467,6 +534,7 @@ def finish_roll(dice):
 
             return
 
+        # Change turn
         current_player = 2
 
         message.config(
@@ -474,26 +542,35 @@ def finish_roll(dice):
         )
 
 
+    # =====================================================
     # PLAYER 2
+    # =====================================================
+
     else:
 
         new_position = player2 + dice
 
+        # Cannot go beyond 100
         if new_position <= 100:
+
             player2 = new_position
 
+        # Ladder
         if player2 in ladders:
 
             old_position = player2
+
             player2 = ladders[player2]
 
             message.config(
                 text=f"🪜 Player 2: {old_position} → {player2}"
             )
 
+        # Snake
         elif player2 in snakes:
 
             old_position = player2
+
             player2 = snakes[player2]
 
             message.config(
@@ -503,11 +580,12 @@ def finish_roll(dice):
         else:
 
             message.config(
-                text=f"🎲 Player 2 rolled {dice}"
+                text=f"🎲 Player 2 rolled {dice} → {player2}"
             )
 
         update_screen()
 
+        # Winner
         if player2 == 100:
 
             message.config(
@@ -520,13 +598,14 @@ def finish_roll(dice):
 
             return
 
+        # Change turn
         current_player = 1
 
         message.config(
             text="🔴 Player 1's turn"
         )
 
-    # Enable button again
+    # Enable roll button
     roll_button.config(
         state="normal"
     )
@@ -554,14 +633,13 @@ def animate_dice(count=0):
 
         return
 
-    # Show random dice number
+    # Random number during animation
     number = random.randint(1, 6)
 
     dice_display.config(
         text=f"🎲 {number}"
     )
 
-    # Continue animation
     window.after(
         80,
         lambda: animate_dice(count + 1)
@@ -574,7 +652,6 @@ def animate_dice(count=0):
 
 def roll_dice():
 
-    # Prevent clicking while dice is rolling
     roll_button.config(
         state="disabled"
     )
@@ -592,10 +669,14 @@ def roll_dice():
 
 def restart_game():
 
-    global player1, player2, current_player
+    global player1
+    global player2
+    global current_player
 
-    player1 = 1
-    player2 = 1
+    # Start from 0
+    player1 = 0
+    player2 = 0
+
     current_player = 1
 
     dice_display.config(
@@ -656,7 +737,7 @@ restart_button.pack(
 
 
 # =========================================================
-# START
+# START GAME
 # =========================================================
 
 update_screen()
