@@ -2,7 +2,7 @@
 
 Welcome to my Python Games Collection! 🚀
 
-This repository contains two Python games created using Python.
+This repository contains two Python games developed using Python.
 
 ---
 
