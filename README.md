@@ -71,6 +71,34 @@ py -3.13 SpaceDodge/game.py
 
 ---
 
+## Requirements
+
+* Python 3.13
+* Tkinter
+* Pygame
+
+---
+
+## Controls
+
+### Snake & Ladder
+
+* Click **Roll Dice** to roll the dice.
+* The player moves according to the dice result.
+* Landing on a ladder moves the player upward.
+* Landing on a snake moves the player downward.
+* The first player to reach 100 wins.
+* Use the **Restart** button to start a new game.
+
+### SpaceDodge
+
+* Use the keyboard to control the spaceship.
+* Move the spaceship to avoid obstacles.
+* Avoid collisions.
+* Try to achieve the highest score.
+
+---
+
 ## Project Structure
 
 ```text
@@ -90,9 +118,22 @@ Snake-and-ladder/
 
 This repository contains my Python game development projects.
 
-### Games included
+### Games Included
 
 1. Snake & Ladder
 2. SpaceDodge
 
-Created by **BR SHARMILA**.
+---
+
+## Author
+
+**BR SHARMILA**
+
+CSE Student
+UBDT College of Engineering
+
+---
+
+## Screenshots
+
+Screenshots of Snake & Ladder and SpaceDodge will be added here.
