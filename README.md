@@ -1,27 +1,25 @@
 # 🐍 Snake & Ladder Game
 
-A simple graphical Snake & Ladder game developed using Python and Tkinter.
+A two-player graphical Snake & Ladder game developed using Python and Tkinter.
 
-## Features
+## 🎮 Features
 
 - 🎲 Two-player dice game
 - 🔴 Player 1
 - 🔵 Player 2
 - 🐍 Snakes
 - 🪜 Ladders
-- 📊 Live score
+- 📊 Live player positions
 - 🏆 Winner detection
-- 🔄 Restart button
 - 🎨 Graphical game board
 
-## Technologies Used
+## 🛠️ Technologies Used
 
 - Python 3.13
 - Tkinter
 - Random
-- Math
 
-## How to Run
+## ▶️ How to Run
 
 Install Python 3.13 and run:
 
