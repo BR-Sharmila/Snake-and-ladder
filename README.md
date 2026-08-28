@@ -109,6 +109,10 @@ Snake-and-ladder/
 ├── SpaceDodge/
 │   └── game.py
 │
+├── screenshots/
+│   ├── snake-ladder-1.jpg
+│   └── snake-ladder-2.jpg
+│
 └── README.md
 ```
 
@@ -133,6 +137,7 @@ CSE Student
 UBDT College of Engineering
 
 ---
+
 ## 📸 Screenshots
 
 ### 🐍 Snake & Ladder
@@ -140,4 +145,3 @@ UBDT College of Engineering
 ![Snake & Ladder Gameplay](screenshots/snake-ladder-1.jpg)
 
 ![Snake & Ladder Game](screenshots/snake-ladder-2.jpg)
-
