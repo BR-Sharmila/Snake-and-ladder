@@ -133,7 +133,13 @@ CSE Student
 UBDT College of Engineering
 
 ---
+## 📸 Screenshots
 
-## Screenshots
+### 🐍 Snake & Ladder
 
-Screenshots of Snake & Ladder and SpaceDodge will be added here.
+![Snake & Ladder](screenshots/snake-ladder-1.jpg)
+
+### 🏆 Winner
+
+![Snake & Ladder Winner](screenshots/snake-ladder-winner.jpg)
+
