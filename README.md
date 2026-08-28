@@ -137,9 +137,7 @@ UBDT College of Engineering
 
 ### 🐍 Snake & Ladder
 
-![Snake & Ladder](screenshots/snake-ladder-1.jpg)
+![Snake & Ladder Gameplay](screenshots/snake-ladder-1.jpg)
 
-### 🏆 Winner
-
-![Snake & Ladder Winner](screenshots/snake-ladder-2.jpg)
+![Snake & Ladder Game](screenshots/snake-ladder-2.jpg)
 
