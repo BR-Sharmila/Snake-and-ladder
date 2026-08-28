@@ -98,6 +98,7 @@ py -3.13 SpaceDodge/game.py
 * Try to achieve the highest score.
 
 ---
+
 ## Project Structure
 
 ```text
@@ -114,8 +115,6 @@ Snake-and-ladder/
 │
 └── README.md
 ```
-
-
 
 ---
 
