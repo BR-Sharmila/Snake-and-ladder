@@ -141,5 +141,5 @@ UBDT College of Engineering
 
 ### 🏆 Winner
 
-![Snake & Ladder Winner](screenshots/snake-ladder-winner.jpg)
+![Snake & Ladder Winner](screenshots/snake-ladder-2.jpg)
 
